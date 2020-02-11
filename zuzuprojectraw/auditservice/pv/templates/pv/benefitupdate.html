@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+  {% load static %}
+
+  {% load crispy_forms_tags %}
+  {% block content  %}
+  <div class="col-md-12 mx-auto">
+      <form id="friend-form" method="post" novalidate>
+        {% csrf_token %}
+        <div class="card">
+                  <!-- <h5 class="card-header text-dark d-flex justify-content-center">General Payment Voucher</h5> -->
+                  <h4 class="card-header  text-dark d-flex justify-content-center bg-success">Benefit Form</h4>
+                  <div class="card-body">
+                        <div class="form-group ">
+
+                          <div class="form-row">
+                              <div class="form-group col-md-3 mb-0 ">
+                                {{ form.Pv_reference|as_crispy_field }}
+
+                              </div>
+
+                              <div class="form-group-sm col-md-2 mb-0">
+                                {{ form.staff_id|as_crispy_field }}
+                              </div>
+                              <div class="form-group-sm col-md-3 mb-0">
+                                {{ form.name|as_crispy_field }}
+
+                              </div>
+                              <div class="form-group col-md-2 mb-0">
+                                {{ form.rank|as_crispy_field }}
+
+                              </div>
+                              <div class="form-group col-md-2 mb-0">
+                                {{ form.amount|as_crispy_field }}
+
+                              </div>
+
+                          </div>
+                          <div class="form-row">
+                            <div class="col text-center">
+                                <button class="btn btn-success" value="Create Friend" >Submit</button>
+                            </div>
+
+                          </div>
+
+                       </div>
+                  </div>
+        </div>
+      </form>
+  </div>
+
+  <div class="container-fluid">
+    <div class="card border-0">
+
+      <div class="card-body">
+        <table class="table table-striped table-sm" id="my_friends">
+            <thead>
+                <tr>
+                    <th>PV Reference </th>
+                    <th>Staff Id</th>
+                    <th>Name</th>
+                    <th>Rank</th>
+                    <th>Amount (GHC)</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for benefit in staffs %}
+            <tr>
+                <td>{{benefit.Pv_reference}}</td>
+                <td>{{benefit.staff_id}}</td>
+                <td>{{benefit.name}}</td>
+                <td>{{benefit.rank}}</td>
+                <td>{{benefit.amount}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+      </div>
+
+
+
+    </div>
+
+
+</div>
+
+
+
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="{% static 'cal/dist/jautocalc.js' %}"></script>
+
+       {% comment %} JQUERY code to calculate Net_amount {% endcomment %}
+       <script>
+   /*
+       On submiting the form, send the POST ajax
+       request to server and after successfull submission
+       display the object.
+   */
+   $("#friend-form").submit(function (e) {
+       // preventing from page reload and default actions
+       e.preventDefault();
+       // serialize the data for sending the form data.
+       var serializedData = $(this).serialize();
+       // make POST ajax call
+       $.ajax({
+           type: 'POST',
+           url: "{% url 'pv:pv-benefit' %}",
+           data: serializedData,
+           success: function (response) {
+               // on successfull creating object
+               // 1. clear the form.
+               $("#friend-form").trigger('reset');
+               // 2. focus to nickname input
+               $("#id_staff_id").focus();
+
+               // display the newly friend to table.
+               var instance = JSON.parse(response["instance"]);
+               var fields = instance[0]["fields"];
+               $("#my_friends tbody").prepend(
+                   `<tr>
+                   <td>${fields["Pv_reference"]||""}</td>
+                   <td>${fields["staff_id"]||""}</td>
+                   <td>${fields["name"]||""}</td>
+                   <td>${fields["rank"]||""}</td>
+                   <td>${fields["amount"]||""}</td>
+
+                   </tr>`
+               )
+           },
+           error: function (response) {
+               // alert the error if any error occured
+               alert(response["responseJSON"]["error"]);
+           }
+       })
+   })
+</script>
+  {% endblock  %}
+<!-- /.container-fluid -->

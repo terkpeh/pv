@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col-md-12">
+  <div class="card border-0">
+    <div class="card-header">
+
+      <form class=" float-right" method="GET" action="" >
+        <select class="col-md-6 mb-0 form-control float-left mr-2"  type="text" name="search">
+          <option value="">-----------------</option>
+          <option value="Withholding">Withholding</option>
+           <option value="Non-Withholding">Non Withholding</option>
+           <option value="Accountable-Impress">Accountable Impress</option>
+           <option value="Non-Accountable-Impress">Non Accountable Impress</option>
+        </select>
+         <!-- <input class="col-md-4 mb-0 form-control float-left mr-2"  type="text" name="search"> -->
+         <button class=" col-md-4 mb-0 btn btn-sm btn-success mt-1 p" type="submit"> Search </button>
+
+      </form>
+    </div>
+    <div class="card-body">
+      <table id="example2" class="table table-bordered  table-hover">
+      <tr>
+
+      <thead class="thead-light  success">
+        <tr>
+            <th scope="col">Pv Reference</th>
+            <th scope="col">Description</th>
+            <th scope="col">IA code</th>
+            <th scope="col">Gross Amount(GH&#8373) </th>
+            <th scope="col">Tax (GH&#8373) </th>
+            <th scope="col">Net Amount (GH&#8373) </th>
+            <th scope="col">Accountable impress</th>
+            <th scope="col">Status</th>
+  
+        </tr>
+
+
+      </thead>
+      <tbody>
+          {% for pv in all_search_results %}
+          <tr>
+              <td>{{pv.Pv_reference}}</td>
+              <td>{{pv.Description}}</td>
+              <td>{{pv.IA_code}}</td>
+              <td>{{pv.Gross_amount}}</td>
+              <td>{{pv.Withholding_tax}}</td>
+              <td>{{pv.Net_amount}}</td>
+              <td>{{pv.Acc_Impress}}</td>
+              <td>
+
+                {% if   pv.Status == 'Completed'  %}
+                    <span class="badge bg-success">{{pv.Status}}</span>
+                {% elif pv.Status == 'Returned' %}
+                  <span class="badge bg-warning">{{pv.Status}}</span>
+                {% else  %}
+                <span class="badge bg-danger">{{pv.Status}}</span>
+                {% endif %}
+              </td>
+              <!-- <td><a class="btn  btn-sm  accent-white" href="{% url 'pv:pv-detail' pk=pv.IA_System_Code  %} "style="background-color:gray; color:white;">View</a></td> -->
+          </tr>
+          {% empty %}
+           <tr>
+             <td colspan="7" class="text-center ">No Pvs Found. Please Select a Filter</td>
+           </tr>
+          {% endfor %}
+      </tbody>
+
+      </table>
+
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,153 @@
+
+    {% extends "base.html" %}
+    {% load crispy_forms_tags %}
+    {% block content  %}
+    <div class="col-md-10 mx-auto">
+        <form method="post" novalidate>
+          {% csrf_token %}
+          <div class="card">
+                    <div class="card-header bg-success ">
+                      <h5 class="card-title ">Pv Details #{{  pvs.IA_System_Code  }} :  {{  pvs.Description  }}   </h5>
+                    </div>
+                    <div class="card-body">
+                          <div class="form-group ">
+                            {% for hidden_field in form.hidden_fields %}
+                             {{ hidden_field }}
+                           {% endfor %}
+
+                           <div class=" col-md-4 mx-auto">
+                             {% if form.non_field_errors %}
+                               <div class="   alert alert-danger" role="alert">
+                                 {% for error in form.non_field_errors %}
+                                   {{ error }}
+                                 {% endfor %}
+                               </div>
+                             {% endif %}
+                           </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-3 mb-0">
+                                  {{ form.Type_of_accounts|as_crispy_field }}
+
+                                </div>
+
+                                <div class="form-group-sm col-md-3 mb-0">
+                                  {{ form.IA_code|as_crispy_field }}
+                                </div>
+                                <div class="form-group-sm col-md-3 mb-0">
+                                  {{ form.Date_recieved|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3 mb-0">
+                                  {{ form.Pv_reference|as_crispy_field }}
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-row">
+                                  <div class="form-group-sm col-md-3 mb-0">
+                                    {{ form.Source_of_Funding|as_crispy_field }}
+                                  </div>
+                                  <div class="form-group-sm col-md-3 mb-0">
+                                    {{ form.Cost_center|as_crispy_field }}
+                                  </div>
+                                  <div class="form-group-sm col-md-6 mb-0">
+                                    {{ form.Type_of_pv|as_crispy_field }}
+                                  </div>
+
+                             </div>
+
+                            <div class="form-row">
+                                  <div class="form-group-sm col-md-6 mb-0">
+                                      {{ form.Payee|as_crispy_field }}
+                                  </div>
+                                  <div class="form-group-sm col-md-6 mb-0">
+                                      {{ form.Description|as_crispy_field }}
+                                  </div>
+                            </div>
+                          </div>
+                    </div>
+          </div>
+            <div class="card">
+                <div class="card-body">
+                  <div class="form-group ">
+
+                    <div class="form-row">
+                        <div class="form-group-sm col-md-3 mb-0">
+                          {{ form.Account_code|as_crispy_field }}
+                        </div>
+                        <div class="form-group-sm col-md-3 mb-0">
+                          {{ form.Gross_amount|as_crispy_field }}
+                        </div>
+                        <div class="form-group-sm col-md-3 mb-0">
+                          {{ form.Withholding_tax|as_crispy_field }}
+                        </div>
+                        <div class="form-group-sm col-md-3 mb-0" disabled>
+                          {{ form.Net_amount|as_crispy_field  }}
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group-sm col-md-4 mb-0">
+                          {{ form.Status|as_crispy_field }}
+                        </div>
+                        <div class="form-group-sm col-md-4 mb-0">
+                          {{ form.Acc_Impress|as_crispy_field }}
+                        </div>
+                        <div class="form-group-sm col-md-4 mb-0">
+                          {{ form.Date_returned|as_crispy_field }}
+                        </div>
+
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group-sm col-md-6 mb-0 " disabled>
+                          {{ form.returned_to_chest|as_crispy_field }}
+                        </div>
+                        <div class="form-group-sm col-md-6 mb-0 " disabled>
+                          {{ form.Remarks|as_crispy_field }}
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                      <div class="col text-center">
+                          <button class="btn btn-success">Submit</button>
+                      </div>
+
+                    </div>
+
+                  </div>
+                 </div>
+               </div>
+            </div>
+          </form>
+          </div>
+
+          <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+          {% comment %} <script src="{% static 'cal/dist/jautocalc.js' %}"></script> {% endcomment %}
+
+
+          <!-- JQUERY code to calculate Net_amount  -->
+          <script>
+
+            $(document).ready(function(){
+
+                $("#id_Withholding_tax").change(function(){
+                          total = $("#id_Gross_amount").val()- $("#id_Withholding_tax").val();
+                          $("#id_Net_amount").val(total.toFixed(2));
+                  });
+                $("#id_Gross_amount").change(function(){
+                            total = $("#id_Gross_amount").val()- $("#id_Withholding_tax").val();
+                            $("#id_Net_amount").val(total.toFixed(2));
+                  });
+                  $("#id_Net_amount").change(function(){
+                              total = $("#id_Gross_amount").val()- $("#id_Withholding_tax").val();
+                              $("#id_Net_amount").val(total.toFixed(2));
+                    });
+              });
+
+
+
+        </script>
+  <!-- /.container-fluid -->
+     {% endblock  %}

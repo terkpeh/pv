@@ -1,0 +1,227 @@
+{% extends "base.html"  %}
+{% block content  %}      <!-- Main content -->
+      <div class="col">
+        <h3 class="m-0 text-dark">DASHBOARD</h3>
+      </div><!-- /.col -->
+      <div class="content">
+        <div class="container-fluid">
+
+          <div class="row">
+            <div class="col-md-3 col-6">
+              <!-- small card -->
+              <div class="small-box " style="background-color:#6c757d;color:white;">
+                <div class="inner">
+                  <p class="float-left pt-4">Total processed PV's</p>
+                  <h1 class="d-flex justify-content-end display-4 text-bold">{{ total_pv }}</h1>
+                </div>
+                <a href="{% url 'pv:monthlyregistedpv' %}" class="small-box-footer">
+                  More info <i class="fas fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <!-- small card -->
+              <div class="small-box " style="background-color:#31cb72;color:white;">
+                <div class="inner">
+                  <p class="float-left pt-4" >Total PV's Completed</p>
+                  <h1 class="d-flex justify-content-end display-4 text-bold">{{ completed_pv }}</h1>
+
+                </div>
+                <div class="icon">
+
+                </div>
+                <a href="{% url 'pv:monthlycompletedpv' %}" class="small-box-footer">
+                  More info <i class="fas fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <!-- small card -->
+              <div class="small-box" style="background-color:#3399cc;color:white;">
+                <div class="inner">
+                  <p class="float-left pt-4">Total  PV's Returned </p>
+                  <h1 class="d-flex justify-content-end display-4 text-bold">{{ returned_pv }}</h1>
+                </div>
+                <a href="{% url 'pv:monthlyreturnedpv' %}" class="small-box-footer">
+                  More info <i class="fas fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <!-- small card -->
+              <div class="small-box" style="background-color:#ff6666;color:white;">
+                <div class="inner">
+                  <p class="float-left pt-4">Total PV's Cancelled</p>
+                  <h1 class="d-flex justify-content-end display-4 text-bold">{{ cancelled_pv }}</h1>
+
+                </div>
+                <div class="icon">
+
+                </div>
+                <a href="{% url 'pv:monthlycancelledpv' %}" class="small-box-footer">
+                  More info <i class="fas fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-md-3 col-6">
+              <div class="info-box">
+                <a href="{% url 'pv:withholding' %}">
+                <span style="background-color:#6c757d;color:white;"class="info-box-icon  p-3"><i class="fas fa-search-dollar"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Withholding Tax</span>
+                  <span class="info-box-number">{{ withholding }}</span>
+                </a>
+
+                </div>
+
+              </div>
+          </div>
+            <div class="col-md-3 col-6">
+              <div class="info-box">
+                  <a href="{% url 'pv:nonwithholding' %}">
+                    <span style="background-color:#31cb72;color:white;" class="info-box-icon  p-3"><i class="fas fa-times"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Non Withholding Tax</span>
+                  <span class="info-box-number">{{ Nonwitholding }}</span>
+                  </a>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <div class="info-box">
+                <a href="{% url 'pv:accimpress' %}">
+                  <span style="background-color:#3399cc;color:white;" class="info-box-icon  p-3"><i class="fas fa-file-invoice-dollar"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Accountable Impress</span>
+                  <span class="info-box-number">{{ accountableimpress }}</span>
+                  </a>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+
+            </div>
+            <div class="col-md-3 col-6">
+              <div class="info-box">
+                <a href="{% url 'pv:nonaccimpress' %}">
+                <span style="background-color:#ff6666;color:white;"class="info-box-icon  p-3"><i class="fas fa-file-excel"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Non Accountable Impress</span>
+                  <span class="info-box-number">{{ nonaccountableimpress }}</span>
+                  </a>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+
+          </div>
+
+
+         </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card ">
+                <div class="card-header-md p-2" style="background-color:#12b056;color:white;">
+                  <h3 class="card-title">Cost Center Stats For The Month </h3>
+
+                  <div class="card-tools">
+
+                  </div>
+                </div>
+                <div class="card-body">
+                  <canvas id="pieChart" style="height: 150px;"></canvas>
+                </div>
+                <!-- /.card-body -->
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card ">
+                <div class="card-header-md p-2" style="background-color:#12b056;color:white;">
+                  <h3 class="card-title">Monthly Net Amount For The Year</h3>
+
+                  <div class="card-tools">
+
+                  </div>
+                </div>
+                <div class="card-body">
+                  <canvas id="barChart" style="height: 150px;"></canvas>
+                </div>
+                <!-- /.card-body -->
+              </div>
+            </div>
+
+         </div>
+
+
+       <div class="row">
+         <div class="col-md-8">
+           <!-- <div class="card card-info">
+             <div class="card-header">
+               <h3 class="card-title">Line Chart</h3>
+
+               <div class="card-tools">
+                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                 </button>
+                 <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+               </div>
+             </div>
+             <div class="card-body">
+               <div class="chart">
+                 <canvas id="lineChart" style="height: 300px; width: 100%;"></canvas>
+               </div>
+             </div>
+
+           </div> -->
+           <div class="card card-success">
+             <div class="card-header">
+               <h3 class="card-title">Monthly Amount Return To Chest</h3>
+
+               <div class="card-tools">
+
+               </div>
+             </div>
+             <div class="card-body">
+               <div class="chart">
+                 <canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+               </div>
+             </div>
+
+           </div>
+         </div>
+         <div class="col-md-4">
+          <div class="card card-dark" >
+            <div class="card-header-md p-2" style="background-color:#12b056;color:white;">
+              <h6 class="card-title ml-2">User Stats</h6>
+            </div>
+            <div class="card-body">
+              <table class="table  table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Users</th>
+                    <th scope="col">Pv's Recorded</th>
+
+
+                  </tr>
+                </thead>
+                <tbody>
+                   {% for i in qryr %}
+                  <tr>
+                      <td>{{i.first_name}} {{i.last_name}}</td>
+                      <td> {{ i.counter }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+       </div>
+      </div>
+
+
+
+
+{% endblock  %}
