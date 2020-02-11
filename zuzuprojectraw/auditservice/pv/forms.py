@@ -10,9 +10,6 @@ class DateInput(forms.DateInput):
     input_type = 'date'
 
 class GeneralpvForm(forms.ModelForm):
-    # Net_amount = forms.DecimalField(max_digits=6, decimal_places=2,required=False,disabled = True)
-    # Date_returned = forms.DateField(required=False)
-
 
     class Meta():
         model= models.Pv
@@ -117,10 +114,6 @@ class UpdateBenefitForm(forms.ModelForm):
 
 
 class UpdatepvForm(forms.ModelForm):
-
-    # Gross_amount = forms.DecimalField(max_digits=6, decimal_places=2,required=False,disabled = True)
-    # Withholding_tax = forms.DecimalField(max_digits=6, decimal_places=2,required=False,disabled = True)
-    # Net_amount = forms.DecimalField(max_digits=6, decimal_places=2,required=False,disabled = True)
     class Meta():
         model= models.Pv
         fields =('Type_of_accounts','IA_code','Date_recieved','Pv_reference','Source_of_Funding','Cost_center','Type_of_pv','Payee','Description','Account_code','Gross_amount','Withholding_tax','Net_amount','Status','Acc_Impress','Date_returned','returned_to_chest','Remarks')

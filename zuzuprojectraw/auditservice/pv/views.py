@@ -20,9 +20,6 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.core import serializers
 
-# from django.utils.html import format_html
-# from .filters import PvFilter
-# Create your views here.
 
 # A class based view to list registered pv for a given year
 class PvList(LoginRequiredMixin,ListView):
@@ -163,9 +160,7 @@ class BenefitUpdateView(LoginRequiredMixin,UpdateView):
     template_name = 'pv/benefitupdate.html' # state the html file this view class is controling
     context_object_name = 'pvs' # context name u will using in  in the html file
 
-    # a method to be called when a pv updates succesfully. it redirects u to the pv details by passing the IA_System_Code as a keyword argument
-    # def get_success_url(self):
-        # return reverse_lazy('pv:hondetails', kwargs={'pk': self.object.IA_System_Code})
+
 
     # a method to desplay a success message when when a pv updates succesfully
     def form_valid(self, form):
@@ -199,8 +194,7 @@ class HonDetailView(LoginRequiredMixin,DetailView):
     template_name = 'pv/detailhun.html'  # state the html file this view class is controling
     context_object_name = 'pvs'  # context name u will using in  in the html file
 
-    # def get(self):
-    #     detials = Pv.objects.all().prefetch_related('staff_set')
+
 
 
 
@@ -238,7 +232,7 @@ class benefitCreateView(CreateView):
     form_class = BenefitForm # call the update form class in form.py
     template_name = 'pv/benefit.html' # state the html file this view class is controling
 
-    # success_url = reverse_lazy('pv:registeredpv') # a success url that redirects u to the list of registered pv
+
 
     #a method to desplay a success message when when a pv is created succesfull
     def get(self, *args, **kwargs):
@@ -493,13 +487,4 @@ class ReportView(ListView):
            result = None
        return result
 
-    # def get(self, request, *args, **kwargs):
-    #     response = HttpResponse(content_type='text/csv')
-    #     response['Content-Disposition'] = 'attachment; filename="report.csv"'
-    #     writer = csv.writer(response)
-    #     writer.writerow(['IA_System_Code','IA_code','Date_recieved','Pv_reference','Source_of_Funding','Cost_center','Payee','Description','Account_code','Gross_amount','Withholding_tax','Net_amount','Status','Acc_Impress','Date_returned','Type_of_accounts','Type_of_pv','returned_to_chest'])
-    #     pvs = self.get_queryset()
-    #     if pvs:
-    #         for pv in pvs:
-    #             writer.writerow([pv.IA_System_Code,pv.IA_code,pv.Date_recieved,pv.Pv_reference,pv.Source_of_Funding,pv.Cost_center,pv.Payee,pv.Description,pv.Account_code,pv.Gross_amount,pv.Withholding_tax,pv.Net_amount,pv.Status,pv.Acc_Impress,pv.Date_returned,pv.Type_of_accounts,pv.Type_of_pv,pv.returned_to_chest])
-    #     return response
+    
