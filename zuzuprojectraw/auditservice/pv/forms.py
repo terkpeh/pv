@@ -42,12 +42,14 @@ class GeneralpvForm(forms.ModelForm):
                 raise forms.ValidationError({'Type_of_pv': ["Please Chose General in the Type of Pv",]})
             elif status == "Returned" and not returndate:
                 raise forms.ValidationError({'Date_returned': ["Please Enter Date Retured To Accounts",]})
-            elif Daterecieved > today:
-                raise forms.ValidationError({'Date_recieved': ["Cannot Use Future Date",]})
-            elif returndate > today:
-                raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
+            # elif Daterecieved:
+            #     if Daterecieved > today:
+            #         raise forms.ValidationError({'Date_recieved': ["Cannot Use Future Date",]})
+            # elif Datereturn:
+            #     if returndate > today:
+            #         raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
             elif status != "Returned" and returndate:
-                raise forms.ValidationError({'Remarks': ["Please remove date returned",]})
+                raise forms.ValidationError({'Date_returned': ["Please remove date returned",]})
             elif tochest > 0.00 and not remarks:
                 raise forms.ValidationError({'Remarks': ["Please enter remarks",]})
         return super(GeneralpvForm, self).clean(*args, **kwargs)
@@ -85,12 +87,14 @@ class HonpvForm(forms.ModelForm):
                 raise forms.ValidationError({'Type_of_pv': ["Please Chose Honorarium in the Type of Pv",]})
             elif status == "Returned" and not returndate:
                 raise forms.ValidationError({'Date_returned': ["Please Enter Date Retured To Accounts",]})
-            elif Daterecieved > today:
-                raise forms.ValidationError({'Date_recieved': ["Cannot Use Future Date",]})
-            elif returndate > today:
-                raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
+            # elif Daterecieved:
+            #     if Daterecieved > today:
+            #         raise forms.ValidationError({'Date_recieved': ["Cannot Use Future Date",]})
+            # elif Datereturn:
+            #     if returndate > today:
+            #         raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
             elif status != "Returned" and returndate:
-                raise forms.ValidationError({'Remarks': ["Please remove date returned",]})
+                raise forms.ValidationError({'Date_returned': ["Please remove date returned",]})
             elif tochest > 0.00 and not remarks:
                 raise forms.ValidationError({'Remarks': ["Please enter remarks",]})
         return super(HonpvForm, self).clean(*args, **kwargs)
@@ -160,12 +164,14 @@ class UpdatepvForm(forms.ModelForm):
                 raise forms.ValidationError({'Type_of_pv': ["Please Chose General in the Type of Pv",]})
             elif status == "Returned" and not returndate:
                 raise forms.ValidationError({'Date_returned': ["Please Enter Date Retured To Accounts",]})
-            elif Daterecieved > today:
-                raise forms.ValidationError({'Date_recieved': ["Cannot Use Future Date",]})
-            elif returndate > today:
-                raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
+            # elif Daterecieved:
+            #     if Daterecieved > today:
+            #         raise forms.ValidationError({'Date_recieved': ["Cannot Use Future Date",]})
+            # elif Datereturn:
+            #     if returndate > today:
+            #         raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
             elif status != "Returned" and returndate:
-                raise forms.ValidationError({'Remarks': ["Please remove date returned",]})
+                raise forms.ValidationError({'Date_returned': ["Please remove date returned",]})
             elif tochest > 0.00 and not remarks:
                 raise forms.ValidationError({'Remarks': ["Please enter remarks",]})
         return super(UpdatepvForm, self).clean(*args, **kwargs)
@@ -194,12 +200,14 @@ class HunUpdatepvForm(forms.ModelForm):
                 raise forms.ValidationError({'Type_of_pv': ["Please Chose Honorarium in the Type of Pv",]})
             elif status == "Returned" and not returndate:
                 raise forms.ValidationError({'Date_returned': ["Please Enter Date Retured To Accounts",]})
-            elif Daterecieved > today:
-                raise forms.ValidationError({'Date_recieved': ["Cannot Use Future Date",]})
-            elif returndate > today:
-                raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
+            # elif Daterecieved:
+            #     if Daterecieved > today:
+            #         raise forms.ValidationError({'Date_recieved': ["Cannot Use Future Date",]})
+            # elif Datereturn:
+            #     if returndate > today:
+            #         raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
             elif status != "Returned" and returndate:
-                raise forms.ValidationError({'Remarks': ["Please remove date returned",]})
+                raise forms.ValidationError({'Date_returned': ["Please remove date returned",]})
             elif tochest > 0.00 and not remarks:
                 raise forms.ValidationError({'Remarks': ["Please enter remarks",]})
         return super(HunUpdatepvForm, self).clean(*args, **kwargs)
@@ -232,12 +240,14 @@ class standardUpdatepvForm(forms.ModelForm):
                 raise forms.ValidationError({'Type_of_pv': ["Please Chose General in the Type of Pv",]})
             elif status == "Returned" and not returndate:
                 raise forms.ValidationError({'Date_returned': ["Please Enter Date Retured To Accounts",]})
-            elif Daterecieved > today:
-                raise forms.ValidationError({'Date_recieved': ["Cannot Use Future Date",]})
-            elif returndate > today:
-                raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
+            # elif Daterecieved:
+            #     if Daterecieved > today:
+            #         raise forms.ValidationError({'Date_recieved': ["Cannot Use Future Date",]})
+            # elif Datereturn:
+            #     if returndate > today:
+            #         raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
             elif status != "Returned" and returndate:
-                raise forms.ValidationError({'Remarks': ["Please remove date returned",]})
+                raise forms.ValidationError({'Date_returned': ["Please remove date returned",]})
             elif tochest > 0.00 and not remarks:
                 raise forms.ValidationError({'Remarks': ["Please enter remarks",]})
         return super(standardUpdatepvForm, self).clean(*args, **kwargs)
