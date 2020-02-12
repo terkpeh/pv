@@ -4,6 +4,8 @@ from django.utils.html import format_html
 from django.conf import settings
 from crum import get_current_user
 from datetime import datetime
+from datetime import date
+from django.core.validators import MaxValueValidator
 
 # from datetime import datetime
 
@@ -61,7 +63,7 @@ class Pv(models.Model):
     )
     IA_System_Code = models.AutoField(primary_key = True)
     IA_code = models.CharField(max_length = 150)
-    Date_recieved = models.DateField()
+    Date_recieved = models.DateField(validators=[MaxValueValidator(limit_value=date.today)])
     Pv_reference = models.CharField(unique = True, max_length = 120)
     Source_of_Funding = models.CharField(max_length=50, choices = source)
     Cost_center = models.CharField(max_length=50, choices = center)
@@ -74,7 +76,7 @@ class Pv(models.Model):
     Status = models.CharField(max_length = 60, choices = stat )
     Remarks =models.CharField(max_length = 500, blank = True)
     Acc_Impress = models.CharField(max_length = 350,choices=acc)
-    Date_returned =models.DateField(null=True,blank = True)
+    Date_returned =models.DateField(null=True,blank = True,validators=[MaxValueValidator(limit_value=date.today)])
     Type_of_accounts= models.CharField(max_length = 100, choices = accounts)
     Type_of_pv = models.CharField(max_length = 20, choices = pv)
     returned_to_chest = models.DecimalField(max_digits=19, decimal_places=2,default= 0.00)

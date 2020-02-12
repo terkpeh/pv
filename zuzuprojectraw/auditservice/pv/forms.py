@@ -3,6 +3,7 @@ from pv.models import Pv
 from django.contrib.auth import authenticate, get_user_model
 from .import models
 from pv.models import staff
+from datetime import date
 # from .widget import XDSoftDateTimePickerInput
 User = get_user_model()
 
@@ -28,15 +29,29 @@ class GeneralpvForm(forms.ModelForm):
 
 
     def clean(self,*args, **kwargs):
+        today = date.today()
         pvtype = self.cleaned_data.get('Type_of_pv')
         tochest = self.cleaned_data.get('returned_to_chest')
         status = self.cleaned_data.get('Status')
         returndate = self.cleaned_data.get('Date_returned')
+        Daterecieved = self.cleaned_data.get('Date_recieved')
+        Datereturn = self.cleaned_data.get('Date_returned')
+        remarks = self.cleaned_data.get('Remarks')
         if pvtype:
             if pvtype != "General":
-                raise forms.ValidationError('Please Chose General in the Type of Pv')
+                raise forms.ValidationError({'Type_of_pv': ["Please Chose General in the Type of Pv",]})
             elif status == "Returned" and not returndate:
-                raise forms.ValidationError('Please Enter Date Retured To Accounts')
+                raise forms.ValidationError({'Date_returned': ["Please Enter Date Retured To Accounts",]})
+            # elif Daterecieved:
+            #     if Daterecieved > today:
+            #         raise forms.ValidationError({'Date_recieved': ["Cannot Use Future Date",]})
+            # elif Datereturn:
+            #     if returndate > today:
+            #         raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
+            elif status != "Returned" and returndate:
+                raise forms.ValidationError({'Date_returned': ["Please remove date returned",]})
+            elif tochest > 0.00 and not remarks:
+                raise forms.ValidationError({'Remarks': ["Please enter remarks",]})
         return super(GeneralpvForm, self).clean(*args, **kwargs)
 
 
@@ -59,15 +74,29 @@ class HonpvForm(forms.ModelForm):
         'Type_of_pv':' Type of Pv (Please remember to chose only Honurarium)',
         }
     def clean(self,*args, **kwargs):
+        today = date.today()
         pvtype = self.cleaned_data.get('Type_of_pv')
         tochest = self.cleaned_data.get('returned_to_chest')
         status = self.cleaned_data.get('Status')
         returndate = self.cleaned_data.get('Date_returned')
+        Daterecieved = self.cleaned_data.get('Date_recieved')
+        Datereturn = self.cleaned_data.get('Date_returned')
+        remarks = self.cleaned_data.get('Remarks')
         if pvtype:
             if pvtype != "Honorarium":
-                raise forms.ValidationError('Please Chose Honorarium in the Type of Pv')
+                raise forms.ValidationError({'Type_of_pv': ["Please Chose Honorarium in the Type of Pv",]})
             elif status == "Returned" and not returndate:
-                raise forms.ValidationError('Please Enter Date Retured To Accounts')
+                raise forms.ValidationError({'Date_returned': ["Please Enter Date Retured To Accounts",]})
+            # elif Daterecieved:
+            #     if Daterecieved > today:
+            #         raise forms.ValidationError({'Date_recieved': ["Cannot Use Future Date",]})
+            # elif Datereturn:
+            #     if returndate > today:
+            #         raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
+            elif status != "Returned" and returndate:
+                raise forms.ValidationError({'Date_returned': ["Please remove date returned",]})
+            elif tochest > 0.00 and not remarks:
+                raise forms.ValidationError({'Remarks': ["Please enter remarks",]})
         return super(HonpvForm, self).clean(*args, **kwargs)
 
 
@@ -122,15 +151,29 @@ class UpdatepvForm(forms.ModelForm):
                      'Date_recieved': DateInput() ,
             }
     def clean(self,*args, **kwargs):
+        today = date.today()
         pvtype = self.cleaned_data.get('Type_of_pv')
         tochest = self.cleaned_data.get('returned_to_chest')
         status = self.cleaned_data.get('Status')
         returndate = self.cleaned_data.get('Date_returned')
+        Daterecieved = self.cleaned_data.get('Date_recieved')
+        Datereturn = self.cleaned_data.get('Date_returned')
+        remarks = self.cleaned_data.get('Remarks')
         if pvtype:
             if pvtype != "General":
-                raise forms.ValidationError('Please Chose General in the Type of Pv')
+                raise forms.ValidationError({'Type_of_pv': ["Please Chose General in the Type of Pv",]})
             elif status == "Returned" and not returndate:
-                raise forms.ValidationError('Please Enter Date Retured To Accounts')
+                raise forms.ValidationError({'Date_returned': ["Please Enter Date Retured To Accounts",]})
+            # elif Daterecieved:
+            #     if Daterecieved > today:
+            #         raise forms.ValidationError({'Date_recieved': ["Cannot Use Future Date",]})
+            # elif Datereturn:
+            #     if returndate > today:
+            #         raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
+            elif status != "Returned" and returndate:
+                raise forms.ValidationError({'Date_returned': ["Please remove date returned",]})
+            elif tochest > 0.00 and not remarks:
+                raise forms.ValidationError({'Remarks': ["Please enter remarks",]})
         return super(UpdatepvForm, self).clean(*args, **kwargs)
 
 class HunUpdatepvForm(forms.ModelForm):
@@ -144,24 +187,37 @@ class HunUpdatepvForm(forms.ModelForm):
                      'Date_recieved': DateInput() ,
             }
     def clean(self,*args, **kwargs):
+        today = date.today()
         pvtype = self.cleaned_data.get('Type_of_pv')
         tochest = self.cleaned_data.get('returned_to_chest')
         status = self.cleaned_data.get('Status')
         returndate = self.cleaned_data.get('Date_returned')
+        Daterecieved = self.cleaned_data.get('Date_recieved')
+        Datereturn = self.cleaned_data.get('Date_returned')
+        remarks = self.cleaned_data.get('Remarks')
         if pvtype:
             if pvtype != "Honorarium":
-                raise forms.ValidationError('Please Chose Honorarium in the Type of Pv')
+                raise forms.ValidationError({'Type_of_pv': ["Please Chose Honorarium in the Type of Pv",]})
             elif status == "Returned" and not returndate:
-                raise forms.ValidationError('Please Enter Date Retured To Accounts')
-
+                raise forms.ValidationError({'Date_returned': ["Please Enter Date Retured To Accounts",]})
+            # elif Daterecieved:
+            #     if Daterecieved > today:
+            #         raise forms.ValidationError({'Date_recieved': ["Cannot Use Future Date",]})
+            # elif Datereturn:
+            #     if returndate > today:
+            #         raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
+            elif status != "Returned" and returndate:
+                raise forms.ValidationError({'Date_returned': ["Please remove date returned",]})
+            elif tochest > 0.00 and not remarks:
+                raise forms.ValidationError({'Remarks': ["Please enter remarks",]})
         return super(HunUpdatepvForm, self).clean(*args, **kwargs)
 
 
 class standardUpdatepvForm(forms.ModelForm):
 
-    Gross_amount = forms.DecimalField(max_digits=6, decimal_places=2,required=False,disabled = True)
-    Withholding_tax = forms.DecimalField(max_digits=6, decimal_places=2,required=False,disabled = True)
-    Net_amount = forms.DecimalField(max_digits=6, decimal_places=2,required=False,disabled = True)
+    # Gross_amount = forms.DecimalField(max_digits=6, decimal_places=2,required=False,disabled = True)
+    # Withholding_tax = forms.DecimalField(max_digits=6, decimal_places=2,required=False,disabled = True)
+    # Net_amount = forms.DecimalField(max_digits=6, decimal_places=2,required=False,disabled = True)
     class Meta():
         model= models.Pv
         fields =('Type_of_accounts','IA_code','Date_recieved','Pv_reference','Source_of_Funding','Cost_center','Type_of_pv','Payee','Description','Account_code','Gross_amount','Withholding_tax','Net_amount','Status','Acc_Impress','Date_returned','returned_to_chest','Remarks')
@@ -171,16 +227,31 @@ class standardUpdatepvForm(forms.ModelForm):
             }
 
     def clean(self,*args, **kwargs):
+        today = date.today()
         pvtype = self.cleaned_data.get('Type_of_pv')
         tochest = self.cleaned_data.get('returned_to_chest')
         status = self.cleaned_data.get('Status')
         returndate = self.cleaned_data.get('Date_returned')
+        Daterecieved = self.cleaned_data.get('Date_recieved')
+        Datereturn = self.cleaned_data.get('Date_returned')
+        remarks = self.cleaned_data.get('Remarks')
         if pvtype:
             if pvtype != "General":
-                raise forms.ValidationError('Please Chose General in the Type of Pv')
+                raise forms.ValidationError({'Type_of_pv': ["Please Chose General in the Type of Pv",]})
             elif status == "Returned" and not returndate:
-                raise forms.ValidationError('Please Enter Date Retured To Accounts')
+                raise forms.ValidationError({'Date_returned': ["Please Enter Date Retured To Accounts",]})
+            # elif Daterecieved:
+            #     if Daterecieved > today:
+            #         raise forms.ValidationError({'Date_recieved': ["Cannot Use Future Date",]})
+            # elif Datereturn:
+            #     if returndate > today:
+            #         raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
+            elif status != "Returned" and returndate:
+                raise forms.ValidationError({'Date_returned': ["Please remove date returned",]})
+            elif tochest > 0.00 and not remarks:
+                raise forms.ValidationError({'Remarks': ["Please enter remarks",]})
         return super(standardUpdatepvForm, self).clean(*args, **kwargs)
+
 
 
 
