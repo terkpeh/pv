@@ -47,7 +47,7 @@ class GeneralpvForm(forms.ModelForm):
             elif returndate > today:
                 raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
             elif tochest > 0.00 and not remarks:
-                raise forms.ValidationError({'Remarks': ["Please must enter a remarks",]})
+                raise forms.ValidationError({'Remarks': ["Please enter a remarks",]})
         return super(GeneralpvForm, self).clean(*args, **kwargs)
 
 
@@ -88,7 +88,7 @@ class HonpvForm(forms.ModelForm):
             elif returndate > today:
                 raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
             elif tochest > 0.00 and not remarks:
-                raise forms.ValidationError({'Remarks': ["Please must enter a remarks",]})
+                raise forms.ValidationError({'Remarks': ["Please enter a remarks",]})
         return super(HonpvForm, self).clean(*args, **kwargs)
 
 
@@ -161,7 +161,7 @@ class UpdatepvForm(forms.ModelForm):
             elif returndate > today:
                 raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
             elif tochest > 0.00 and not remarks:
-                raise forms.ValidationError({'Remarks': ["Please must enter a remarks",]})
+                raise forms.ValidationError({'Remarks': ["Please enter a remarks",]})
         return super(UpdatepvForm, self).clean(*args, **kwargs)
 
 class HunUpdatepvForm(forms.ModelForm):
@@ -193,7 +193,7 @@ class HunUpdatepvForm(forms.ModelForm):
             elif returndate > today:
                 raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
             elif tochest > 0.00 and not remarks:
-                raise forms.ValidationError({'Remarks': ["Please must enter a remarks",]})
+                raise forms.ValidationError({'Remarks': ["Please enter a remarks",]})
         return super(HunUpdatepvForm, self).clean(*args, **kwargs)
 
 
@@ -229,7 +229,7 @@ class standardUpdatepvForm(forms.ModelForm):
             elif returndate > today:
                 raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
             elif tochest > 0.00 and not remarks:
-                raise forms.ValidationError({'Remarks': ["Please must enter a remarks",]})
+                raise forms.ValidationError({'Remarks': ["Please enter a remarks",]})
         return super(standardUpdatepvForm, self).clean(*args, **kwargs)
 
 
